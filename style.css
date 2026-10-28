@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=IM+Fell+English:ital@0;1&display=swap');
+
+:root {
+  --paper: #f7efdE;
+  --paper-dark: #e4d2b0;
+  --ink: #493426;
+  --wine: #7b302e;
+  --envelope: #9a6548;
+  --envelope-dark: #754833;
+  --shadow: rgba(49, 30, 20, .22);
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; background: #e9dcc5; }
+body {
+  margin: 0; min-height: 100vh; color: var(--ink);
+  background:
+    radial-gradient(ellipse at 15% 12%, rgba(255,255,255,.58), transparent 35%),
+    radial-gradient(ellipse at 90% 85%, rgba(132,89,55,.12), transparent 40%),
+    repeating-linear-gradient(0deg, rgba(92,63,39,.025) 0, rgba(92,63,39,.025) 1px, transparent 1px, transparent 4px),
+    #e9dcc5;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+.scene {
+  width: min(100%, 760px); min-height: 100svh; margin: 0 auto;
+  padding: max(32px, env(safe-area-inset-top)) 18px max(28px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.eyebrow { margin: 8px 0 5px; text-transform: uppercase; letter-spacing: .2em; font-size: .76rem; }
+h1 { font-family: 'IM Fell English', Georgia, serif; font-weight: 400; font-size: clamp(2.15rem, 9vw, 3.5rem); margin: 0; }
+.intro { margin: 8px 0 14px; font-size: 1.12rem; }
+.letter-stage { width: 100%; min-height: 320px; display: grid; place-items: center; position: relative; perspective: 1200px; }
+.envelope-button {
+  position: relative; display: block; width: min(82vw, 390px); height: min(55vw, 255px);
+  min-height: 190px; max-height: 255px; border: 0; padding: 0; background: transparent;
+  cursor: pointer; filter: drop-shadow(0 14px 13px var(--shadow)); z-index: 3;
+  transition: opacity .35s, transform .55s;
+  -webkit-tap-highlight-color: transparent;
+}
+.envelope-button:focus-visible, .action-button:focus-visible { outline: 3px solid #3e6c70; outline-offset: 5px; }
+.envelope-back { position: absolute; inset: 0; border-radius: 5px; background: var(--envelope-dark); }
+.letter-peek {
+  position: absolute; z-index: 1; left: 8%; width: 84%; height: 92%; bottom: 3%;
+  background: var(--paper); border: 1px solid #d3bf9d; transform: translateY(-2px);
+  transition: transform .7s ease;
+}
+.envelope-front {
+  position: absolute; z-index: 3; inset: 0; border-radius: 5px;
+  background: linear-gradient(145deg, #b47d5a, var(--envelope) 70%, #89553b);
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+}
+.envelope-pocket-left, .envelope-pocket-right {
+  position: absolute; z-index: 4; inset: 0; pointer-events: none;
+}
+.envelope-pocket-left { background: #a96f4d; clip-path: polygon(0 0, 50% 57%, 0 100%); }
+.envelope-pocket-right { background: #8d573e; clip-path: polygon(100% 0, 50% 57%, 100% 100%); }
+.envelope-flap {
+  position: absolute; z-index: 5; left: 0; top: 0; width: 100%; height: 65%;
+  background: linear-gradient(155deg, #c18b66, #a36d4d);
+  clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top;
+  transition: transform .7s ease; backface-visibility: hidden;
+}
+.wax-seal {
+  position: absolute; z-index: 6; left: 50%; top: 57%; transform: translate(-50%, -50%);
+  display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+  color: #f4d9ae; font-family: 'IM Fell English', Georgia, serif; font-size: 1.4rem;
+  background: radial-gradient(circle at 35% 25%, #a84e45, #742724 72%);
+  border: 2px solid #b56b57; box-shadow: 0 2px 5px #583327;
+}
+.letter {
+  position: absolute; z-index: 2; width: min(88vw, 500px); top: 12px;
+  opacity: 0; transform: translateY(45px) scale(.92); pointer-events: none;
+  transition: opacity .65s ease, transform .8s cubic-bezier(.2,.75,.2,1);
+  max-height: min(70svh, 760px); overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-color: #b69a72 transparent; scrollbar-width: thin;
+}
+.letter-paper {
+  background:
+    radial-gradient(ellipse at 0 0, rgba(166,119,69,.10), transparent 45%),
+    repeating-linear-gradient(0deg, rgba(90,61,36,.025) 0, rgba(90,61,36,.025) 1px, transparent 1px, transparent 5px),
+    var(--paper);
+  border: 1px solid #d2bd99; box-shadow: 0 12px 28px var(--shadow);
+  padding: 14px; text-align: left;
+}
+.paper-inner { border: 1px solid #c9b18a; padding: 22px clamp(17px, 5vw, 32px) 25px; }
+.letter-date { text-align: center; font-style: italic; font-size: 1.05rem; margin: 0 0 4px; }
+.ornament, .bottom-ornament { text-align: center; color: #956846; letter-spacing: .2em; }
+.ornament { margin: 0 0 20px; }
+.letter-message { font-size: clamp(1.06rem, 4.1vw, 1.24rem); line-height: 1.55; white-space: pre-line; overflow-wrap: anywhere; }
+.letter-message p { margin: 0 0 1em; }
+.signoff { margin-top: 22px; font-size: 1.15rem; font-style: italic; }
+.signature { margin-top: 3px; font-family: 'IM Fell English', Georgia, serif; font-size: 1.55rem; color: var(--wine); }
+.bottom-ornament { margin-top: 22px; }
+.scene.is-open .envelope-button { opacity: 0; transform: translateY(20px) scale(.96); pointer-events: none; }
+.scene.is-open .letter { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; z-index: 7; }
+.scene.is-open .letter-peek { transform: translateY(-70px); }
+.controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 4px 0 0; }
+.action-button {
+  appearance: none; border: 1px solid #6e4533; border-radius: 3px; padding: 12px 20px;
+  background: #704634; color: #fff4df; font: 600 1rem 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: .04em; box-shadow: 0 3px 0 #4f3024; cursor: pointer; min-height: 44px;
+}
+.action-button:active { transform: translateY(2px); box-shadow: 0 1px 0 #4f3024; }
+.action-button.secondary { background: transparent; color: var(--ink); box-shadow: none; }
+[hidden] { display: none !important; }
+.footnote { font-style: italic; font-size: .95rem; opacity: .8; margin: auto 0 0; padding-top: 26px; }
+@media (min-width: 600px) {
+  .letter-stage { min-height: 365px; }
+  .letter { top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
